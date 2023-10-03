@@ -1,0 +1,11 @@
+.parent-border {
+	display: block;
+	width: 600px;
+	height: 400px;
+	border: 1px solid black;
+
+	.adapted-size {
+		display: flex;
+		width: fit-content;
+	}
+}
