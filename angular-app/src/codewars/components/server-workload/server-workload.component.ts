@@ -9,7 +9,7 @@ export class ServerWorkloadComponent {
 
 	// initNodes(), getDistributedJobs(), addNode(), addJob() - YAGNI
 
-	public distributeJobs(nodesCount: number, jobsCount: number): number[][] {
+	private _distributeJobs(nodesCount: number, jobsCount: number): number[][] {
 		const result: number[][] = [];
 		let nodeIndex = 0;
 		for (let jobNumber = 0; jobNumber < jobsCount; jobNumber++) {
@@ -21,5 +21,12 @@ export class ServerWorkloadComponent {
 			}
 		}
 		return result;
+	}
+
+	public distributeJobs(nodesCount: number, jobsCount: number): number[][] {
+		if (nodesCount <= 0 || jobsCount <=0) {
+			return [];
+		}
+		return this._distributeJobs(nodesCount, jobsCount);
 	};
 }
