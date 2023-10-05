@@ -31,7 +31,7 @@ describe('ServerWorkloadComponent', () => {
 
 	describe('distribute', () => {
 		it('should not distribute the load if amount of jobs or nodes less than 1', () => {
-			const result = component.distributeJobs(0, -1);
+			const result = component.distributeJobs(1, -1);
 			expect(result).toEqual([]);
 		});
 		
@@ -48,6 +48,11 @@ describe('ServerWorkloadComponent', () => {
 		it('should distribute the load for one node if it single', () => {
 			const result = component.distributeJobs(1, 3);
 			expect(result).toEqual([[0, 1, 2]]);
+		});
+
+		it('should distribute all jobs if amount of nodes is greather than jobs', () => {
+			const result = component.distributeJobs(3, 2);
+			expect(result).toEqual([[0], [1]]);
 		});
 
 		it('should distribute the load by servers uniformly in ascending order', () => {
