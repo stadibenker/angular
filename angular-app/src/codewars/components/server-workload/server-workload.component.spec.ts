@@ -42,7 +42,7 @@ describe('ServerWorkloadComponent', () => {
 
 		it('should distribute the load evenly if amout of nodes is multiple', () => {
 			const result = component.distributeJobs(2, 4);
-			expect(result).toEqual([[0, 2], [1, 3]]);
+			expect(result).toEqual([[0, 1], [2, 3]]);
 		});
 
 		it('should distribute the load for one node if it single', () => {
@@ -57,7 +57,22 @@ describe('ServerWorkloadComponent', () => {
 
 		it('should distribute the load by servers uniformly in ascending order', () => {
 			const result = component.distributeJobs(3, 8);
-			expect(result).toEqual([[0, 3, 6], [1, 4, 7], [2, 5]]);
+			expect(result).toEqual([[0, 1, 2], [3, 4, 5], [6, 7]]);
+		});
+
+		it('should distribute the load by servers uniformly in ascending order 2', () => {
+			const result = component.distributeJobs(4, 10);
+			expect(result).toEqual([[0, 1, 2], [3, 4, 5], [6, 7], [8, 9]]);
+		});
+
+		it('should distribute the load by servers uniformly in ascending order 3', () => {
+			const result = component.distributeJobs(4, 5);
+			expect(result).toEqual([[0, 1], [2], [3], [4]]);
+		});
+
+		it('should distribute the load by servers uniformly in ascending order 4', () => {
+			const result = component.distributeJobs(2, 1);
+			expect(result).toEqual([[0], []]);
 		});
 	})
 });
