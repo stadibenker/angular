@@ -10,24 +10,30 @@ export class ServerWorkloadComponent {
 	// initNodes(), getDistributedJobs(), addNode(), addJob() - YAGNI
 
 	private _createNodesArray(nodesCount: number, jobsCount: number): number[][] {
-        const nodesArray: number[][] = [];
+        const nodesWorkloadArray = new Array(nodesCount).fill(0);
         let nodeIndex = 0;
-        for (let jobNumber = 0; jobNumber < jobsCount; jobNumber++) {
-            nodesArray[nodeIndex] = nodesArray[nodeIndex] ?? [];
-            nodesArray[nodeIndex].push(-1);
+        for (let index = 0; index < Math.max(jobsCount, nodesCount); index++) {
+			nodesWorkloadArray[nodeIndex]++;
             nodeIndex++;
             if (nodeIndex === nodesCount) {
                 nodeIndex = 0;
             }
         }
+		const nodesArray = new Array(nodesWorkloadArray.length).fill([]);
+		nodesWorkloadArray.forEach((workload, i) => {
+			nodesArray[i] = new Array(workload).fill(undefined);
+		});
         return nodesArray;
+
 	}
 
-	private _fillNodesArray(nodesArray: number[][]): number[][] {
+	private _fillNodesArray(nodesArray: number[][], jobsCount: number): number[][] {
 		let jobIndex = 0;
 		nodesArray.forEach(nodeChunk => {
 			nodeChunk.forEach((_node, i) => {
-				nodeChunk[i] = jobIndex;
+				if(jobIndex < jobsCount) {
+					nodeChunk[i] = jobIndex;
+				}
 				jobIndex++;
 			});
 		});
@@ -39,7 +45,7 @@ export class ServerWorkloadComponent {
 			return [];
 		}
 		let nodesArray = this._createNodesArray(nodesCount, jobsCount);
-		nodesArray = this._fillNodesArray(nodesArray);
+		nodesArray = this._fillNodesArray(nodesArray, jobsCount);
 		return nodesArray;
 	};
 }

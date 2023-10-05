@@ -52,7 +52,7 @@ describe('ServerWorkloadComponent', () => {
 
 		it('should distribute all jobs if amount of nodes is greather than jobs', () => {
 			const result = component.distributeJobs(3, 2);
-			expect(result).toEqual([[0], [1]]);
+			expect(result).toEqual([[0], [1], []]);
 		});
 
 		it('should distribute the load by servers uniformly in ascending order', () => {
@@ -71,8 +71,8 @@ describe('ServerWorkloadComponent', () => {
 		});
 
 		it('should distribute the load by servers uniformly in ascending order 4', () => {
-			const result = component.distributeJobs(2, 1);
-			expect(result).toEqual([[0], []]);
+			const result = component.distributeJobs(3, 2);
+			expect(result).toEqual([[0], [1], []]);
 		});
 	})
 });
