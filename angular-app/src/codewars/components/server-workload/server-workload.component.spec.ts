@@ -30,49 +30,28 @@ describe('ServerWorkloadComponent', () => {
 	});
 
 	describe('distribute', () => {
-		it('should not distribute the load if amount of jobs or nodes less than 1', () => {
-			const result = component.distributeJobs(1, -1);
-			expect(result).toEqual([]);
+		it('should distribute the load by servers uniformly in ascending order 1', () => {
+            const result = component.distributeJobs(4, 5);
+            expect(result).toEqual([[0, 1], [2], [3], [4]]);
+        });
+
+        it('should distribute the load by servers uniformly in ascending order 2', () => {
+            const result = component.distributeJobs(3, 2);
+            expect(result).toStrictEqual([[0], [1], []]);
 		});
 		
-		it('should distribute the load evenly if amout of nodes = amout jobs', () => {
-			const result = component.distributeJobs(2, 2);
-			expect(result).toEqual([[0], [1]]);
+		test.each([
+			[3, 2, [[0], [1], []]],
+			[4, 5, [[0, 1], [2], [3], [4]]],
+			[4, 10, [[0, 1, 2], [3, 4, 5], [6, 7], [8, 9]]],
+			[3, 8, [[0, 1, 2], [3, 4, 5], [6, 7]]],
+			[1, 3, [[0, 1, 2]]],
+			[2, 4, [[0, 1], [2, 3]]],
+			[-1, 1, []],
+		],
+		)('when nodes amount = %p, jobs amount = %p, result should be %p', (nodesCount: number, jobsCount, expectedResult) => {
+			const result = component.distributeJobs(nodesCount, jobsCount);
+			expect(result).toStrictEqual(expectedResult);
 		});
-
-		it('should distribute the load evenly if amout of nodes is multiple', () => {
-			const result = component.distributeJobs(2, 4);
-			expect(result).toEqual([[0, 1], [2, 3]]);
-		});
-
-		it('should distribute the load for one node if it single', () => {
-			const result = component.distributeJobs(1, 3);
-			expect(result).toEqual([[0, 1, 2]]);
-		});
-
-		it('should distribute all jobs if amount of nodes is greather than jobs', () => {
-			const result = component.distributeJobs(3, 2);
-			expect(result).toEqual([[0], [1], []]);
-		});
-
-		it('should distribute the load by servers uniformly in ascending order', () => {
-			const result = component.distributeJobs(3, 8);
-			expect(result).toEqual([[0, 1, 2], [3, 4, 5], [6, 7]]);
-		});
-
-		it('should distribute the load by servers uniformly in ascending order 2', () => {
-			const result = component.distributeJobs(4, 10);
-			expect(result).toEqual([[0, 1, 2], [3, 4, 5], [6, 7], [8, 9]]);
-		});
-
-		it('should distribute the load by servers uniformly in ascending order 3', () => {
-			const result = component.distributeJobs(4, 5);
-			expect(result).toEqual([[0, 1], [2], [3], [4]]);
-		});
-
-		it('should distribute the load by servers uniformly in ascending order 4', () => {
-			const result = component.distributeJobs(3, 2);
-			expect(result).toEqual([[0], [1], []]);
-		});
-	})
+	});
 });

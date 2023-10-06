@@ -10,29 +10,30 @@ export class ServerWorkloadComponent {
 	// initNodes(), getDistributedJobs(), addNode(), addJob() - YAGNI
 
 	private _createNodesArray(nodesCount: number, jobsCount: number): number[][] {
-        const nodesWorkloadArray = new Array(nodesCount).fill(0);
-        let nodeIndex = 0;
-        for (let index = 0; index < Math.max(jobsCount, nodesCount); index++) {
+		const nodesWorkloadArray = new Array(nodesCount).fill(0);
+		let nodeIndex = 0;
+		for (let index = 0; index < Math.max(jobsCount, nodesCount); index++) {
 			nodesWorkloadArray[nodeIndex]++;
-            nodeIndex++;
-            if (nodeIndex === nodesCount) {
-                nodeIndex = 0;
-            }
-        }
+			nodeIndex++;
+			if (nodeIndex === nodesCount) {
+				nodeIndex = 0;
+			}
+		}
 		const nodesArray = new Array(nodesWorkloadArray.length).fill([]);
-		nodesWorkloadArray.forEach((workload, i) => {
-			nodesArray[i] = new Array(workload).fill(undefined);
+		nodesWorkloadArray.forEach((workload, nodeIndex) => {
+			nodesArray[nodeIndex] = Array.from({ length: workload })
 		});
-        return nodesArray;
-
+		return nodesArray;
 	}
 
-	private _fillNodesArray(nodesArray: number[][], jobsCount: number): number[][] {
+	private _fillNodesArray(nodesArray: any[][], jobsCount: number): number[][] {
 		let jobIndex = 0;
-		nodesArray.forEach(nodeChunk => {
-			nodeChunk.forEach((_node, i) => {
+		nodesArray.forEach((nodeChunk, i) => {
+			nodeChunk.forEach((_node, nodeIndex) => {
 				if(jobIndex < jobsCount) {
-					nodeChunk[i] = jobIndex;
+					nodeChunk[nodeIndex] = jobIndex;
+				} else {
+					nodesArray[i] = [];
 				}
 				jobIndex++;
 			});
