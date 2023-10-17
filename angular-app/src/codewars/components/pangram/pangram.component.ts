@@ -6,10 +6,12 @@ import { Component } from '@angular/core';
 	styleUrls: ['./pangram.component.scss']
 })
 export class PangramComponent {
+	private readonly _alphabet = 'abcdefghijklmnopqrstuvwxyz';
+	
 	public isPangram(sentence: string): boolean {
-		if(!sentence || sentence.length === 0) {
+		if (!sentence || sentence.length === 0) {
 			return false;
 		}
-		return true;
+		return this._alphabet.toLowerCase().split('').every(letter => sentence.toLowerCase().includes(letter));
 	}
 }

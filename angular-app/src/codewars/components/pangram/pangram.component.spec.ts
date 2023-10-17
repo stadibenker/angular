@@ -21,7 +21,12 @@ let fixture: ComponentFixture<PangramComponent>;
 
 	describe('is pangram', () => {
 		test.each([
-			['', false]
+			['', false],
+			['abc', false],
+			['The quick brown fox jumps over the lazy dog', true],
+			['@The \'quick brown fox,jumps over the lazy dog _', true],
+			['The quick brown fox,jumps over the lazy do', false],
+			['Pack my box with five dozen liquor jugs.', true],
 		])
 		('when sentence is %p, isPangram should be %p', (sentence: string, expectedResult: boolean) => {
 			const isPangram = component.isPangram(sentence);
