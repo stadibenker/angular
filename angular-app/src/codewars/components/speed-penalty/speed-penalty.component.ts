@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
 	styleUrls: ['./speed-penalty.component.scss']
 })
 export class SpeedPenaltyComponent {
-
+	public getPenalty(parameters: number[]): number {
+		return 0;
+	}
 }
