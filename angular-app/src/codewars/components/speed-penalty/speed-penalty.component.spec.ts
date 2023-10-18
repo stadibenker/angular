@@ -14,8 +14,8 @@ import { SpeedPenaltyComponent } from './speed-penalty.component';
 */
 
 describe('SpeedPenaltyComponent', () => {
-let component: SpeedPenaltyComponent;
-let fixture: ComponentFixture<SpeedPenaltyComponent>;
+	let component: SpeedPenaltyComponent;
+	let fixture: ComponentFixture<SpeedPenaltyComponent>;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
@@ -32,12 +32,14 @@ let fixture: ComponentFixture<SpeedPenaltyComponent>;
 
 	describe('speed penalty', () => {
 		test.each([
-			[[0, 0, 0], 0],
-			[[2, 1, 0], 120],
+			[['0', '0', '0'], '0'],
+			[['45', '30', '50', '1'], '1304550'],
+			[['0', '4', '1', '0', '2', '0'], '100024'],
+			[['2', '1', '0'], '102'],
 		])
-		('when parameters are %p, result should be %p', (conditions: number[], expectedResult: number) => {
+		('when parameters are %p, result should be %p', (conditions: string[], expectedResult: string) => {
 			const result = component.getPenalty(conditions);
 			expect(result).toEqual(expectedResult);
 		});
-	})
+	});
 });
