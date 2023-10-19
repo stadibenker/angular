@@ -12,6 +12,27 @@ export class SpeedPenaltyComponent {
 		return conditionsArray.every(x => x === this._zero);
 	}
 
+	private _getBestNumbers2(conditionsArray: string[]): string[] {
+		if (conditionsArray.length === 1) {
+			return conditionsArray;
+		}
+		let bestNumbers: number[] = [];
+		for(let i = 0; i < conditionsArray.length; i++) {
+			if (i === conditionsArray.length - 1) {
+				break;
+			}
+			const stuckNumber1 = BigInt(conditionsArray[i] + conditionsArray[i + 1]);
+			const stuckNumber2 = BigInt(conditionsArray[i + 1] + conditionsArray[i]);
+			const bestNumber = Number(stuckNumber1 < stuckNumber2 ? conditionsArray[i] : conditionsArray[i + 1]);
+			if (!bestNumbers[0] || bestNumber < bestNumbers[0]) {
+				bestNumbers = [bestNumber];
+			} else if (bestNumbers[0] === bestNumber) {
+				bestNumbers.push(bestNumber);
+			}
+		}
+		return bestNumbers.map(number => number.toString());
+	}
+
 	private _getBestNumbers(conditionsArray: string[], rank: number): string[] {
 		if (conditionsArray.length === 1 || conditionsArray.every(x => x === conditionsArray[0])) {
 			return conditionsArray;
@@ -45,7 +66,7 @@ export class SpeedPenaltyComponent {
 		}
 		let result: string[] = [];
 		while (conditionsArray.length > 0) {
-			const bestNumbers = this._getBestNumbers(conditionsArray, 0);
+			const bestNumbers = this._getBestNumbers2(conditionsArray);
 			result = [...result, ...bestNumbers];
 			conditionsArray = conditionsArray.filter(x => x !== bestNumbers[0]);
 		}
