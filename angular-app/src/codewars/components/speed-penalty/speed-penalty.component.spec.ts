@@ -41,7 +41,7 @@ describe('SpeedPenaltyComponent', () => {
 			[['4000', '100', '1'], '10014000'],
 			[['45', '30', '50', '1'], '1304550'],
 			[['0', '4', '1', '0', '2', '0'], '100024'],
-			[['2', '1', '0'], '102'],
+			[['2', '1', '0', '0'], '1002'],
 		])
 		('when parameters are %p, result should be %p', (conditions: string[], expectedResult: string) => {
 			const result = component.getPenalty(conditions);

@@ -30,7 +30,7 @@ export class SpeedPenaltyComponent {
 		}
 		let result: string [] = [];
 		conditionsArray.forEach(number => {
-			if (!result[0] && number !== '0') {
+			if (!result[0]) {
 				result = [number];
 			} else if (number[rank] && number[rank] === result[0][rank]) {
 				result.push(number);
@@ -53,6 +53,11 @@ export class SpeedPenaltyComponent {
 			const bestNumbers = this._getBestNumbers(conditionsArray, 0);
 			result = [...result, ...bestNumbers];
 			conditionsArray = conditionsArray.filter(x => x !== bestNumbers[0]);
+		}
+		const nonZeroIndex = result.lastIndexOf('0');
+		if (nonZeroIndex > -1) {
+			result[0] = result[nonZeroIndex + 1];
+			result[nonZeroIndex + 1] = '0';
 		}
 		return this._createWholeNumberStr(result);
 	}
