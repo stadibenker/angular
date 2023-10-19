@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
 	styleUrls: ['./speed-penalty.component.scss']
 })
 export class SpeedPenaltyComponent {
+	private readonly _zero = '0';
+
 	private _isZeroArray(conditionsArray: string[]): boolean {
-		return conditionsArray.every(x => x === '0');
+		return conditionsArray.every(x => x === this._zero);
 	}
 
 	private _getBestNumbers(conditionsArray: string[], rank: number): string[] {
@@ -22,9 +24,9 @@ export class SpeedPenaltyComponent {
 				result.push(number);
 			} else if (number[rank] < result[0][rank] || number[rank] < result[0][rank - 1]) {
 				result = [number];
-			} else if (!number[rank] && result[0][rank] !== '0' && number[rank - 1] < result[0][rank]) {
+			} else if (!number[rank] && result[0][rank] !== this._zero && number[rank - 1] < result[0][rank]) {
 				result = [number];
-			} else if (number[rank] === '0' && !result[0][rank]) {
+			} else if (number[rank] === this._zero && !result[0][rank]) {
 				result = [number];
 			} else {
 				return;
@@ -39,7 +41,7 @@ export class SpeedPenaltyComponent {
 
 	public getPenalty(conditionsArray: string[]): string {
 		if(this._isZeroArray(conditionsArray)) {
-			return '0';
+			return this._zero;
 		}
 		let result: string[] = [];
 		while (conditionsArray.length > 0) {
@@ -47,10 +49,10 @@ export class SpeedPenaltyComponent {
 			result = [...result, ...bestNumbers];
 			conditionsArray = conditionsArray.filter(x => x !== bestNumbers[0]);
 		}
-		const nonZeroIndex = result.lastIndexOf('0');
+		const nonZeroIndex = result.lastIndexOf(this._zero);
 		if (nonZeroIndex > -1) {
 			result[0] = result[nonZeroIndex + 1];
-			result[nonZeroIndex + 1] = '0';
+			result[nonZeroIndex + 1] = this._zero;
 		}
 		return this._createWholeNumberStr(result);
 	}
