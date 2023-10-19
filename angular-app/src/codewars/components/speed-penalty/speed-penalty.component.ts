@@ -6,24 +6,6 @@ import { Component } from '@angular/core';
 	styleUrls: ['./speed-penalty.component.scss']
 })
 export class SpeedPenaltyComponent {
-	private _isZeroArray(array: number[]): boolean {
-		return array.every(x => x === 0);
-	}
-	
-	private _createWholeNumberStr(array: string[]): string {
-		return array.toString().replaceAll(',', '');
-	}
-
-	/*
-		conditions = conditions without zero
-		while(conditions.length > 0) {
-			bestNumber = this._getBestNumber(conditions);
-			bestNumberArray += bestNumber;
-			conditions -= bestNumber;
-		}
-		bestNumberArray = bestNumberArray[0] + zerozArray + bestNumberArray
-	*/
-
 	private _getBestNumbers(conditionsArray: string[], rank: number): string[] {
 		if (conditionsArray.length === 1 || conditionsArray.every(x => x === conditionsArray[0])) {
 			return conditionsArray;
@@ -45,6 +27,10 @@ export class SpeedPenaltyComponent {
 			}
 		});
 		return this._getBestNumbers(result, rank + 1);
+	}
+
+	private _createWholeNumberStr(array: string[]): string {
+		return array.toString().replaceAll(',', '');
 	}
 
 	public getPenalty(conditionsArray: string[]): string {
