@@ -12,25 +12,25 @@ export class SpeedPenaltyComponent {
 		return conditionsArray.every(x => x === this._zero);
 	}
 
-	private _getBestNumbers2(conditionsArray: string[]): string[] {
+	private _getBestNumber2(conditionsArray: string[]): string {
 		if (conditionsArray.length === 1) {
-			return conditionsArray;
+			return conditionsArray[0];
 		}
-		let bestNumbers: number[] = [];
+		let result: number = Number.MAX_VALUE;
 		for(let i = 0; i < conditionsArray.length; i++) {
-			if (i === conditionsArray.length - 1) {
-				break;
-			}
-			const stuckNumber1 = BigInt(conditionsArray[i] + conditionsArray[i + 1]);
-			const stuckNumber2 = BigInt(conditionsArray[i + 1] + conditionsArray[i]);
-			const bestNumber = Number(stuckNumber1 < stuckNumber2 ? conditionsArray[i] : conditionsArray[i + 1]);
-			if (!bestNumbers[0] || bestNumber < bestNumbers[0]) {
-				bestNumbers = [bestNumber];
-			} else if (bestNumbers[0] === bestNumber) {
-				bestNumbers.push(bestNumber);
+			for(let j = 0; j < conditionsArray.length; j++) {
+				if (i >= j) {
+					continue;
+				}
+				const stuckNumber1 = Number(conditionsArray[i] + conditionsArray[j]);
+				const stuckNumber2 = Number(conditionsArray[j] + conditionsArray[i]);
+				const bestNumber = Number(stuckNumber1 < stuckNumber2 ? conditionsArray[i] : conditionsArray[j]);
+				if (bestNumber < result) {
+					result = bestNumber;
+				}
 			}
 		}
-		return bestNumbers.map(number => number.toString());
+		return result.toString();
 	}
 
 	private _getBestNumbers(conditionsArray: string[], rank: number): string[] {
@@ -66,9 +66,10 @@ export class SpeedPenaltyComponent {
 		}
 		let result: string[] = [];
 		while (conditionsArray.length > 0) {
-			const bestNumbers = this._getBestNumbers2(conditionsArray);
-			result = [...result, ...bestNumbers];
-			conditionsArray = conditionsArray.filter(x => x !== bestNumbers[0]);
+			const bestNumber = this._getBestNumber2(conditionsArray);
+			result.push(bestNumber);
+			const index = conditionsArray.findIndex(x => x === bestNumber);
+			conditionsArray.splice(index, 1);
 		}
 		const nonZeroIndex = result.lastIndexOf(this._zero);
 		if (nonZeroIndex > -1) {

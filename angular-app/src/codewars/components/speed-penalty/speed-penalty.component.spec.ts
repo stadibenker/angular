@@ -50,6 +50,7 @@ describe('SpeedPenaltyComponent', () => {
 			// [['161921225', '0', '525', '569', '74', '8385878894'], '1619212250525569748385878894'],
 			// [['11542434547516061707777868', '795', '92'], '1154243454751606170777786879592'],
 			[['618', '618624', '61862419'], '61861862419618624'],
+			[['618', '618777', '61866619'], '61861866619618777'],
 		])
 		('when parameters are %p, result should be %p', (conditions: string[], expectedResult: string) => {
 			const result = component.getPenalty(conditions);
