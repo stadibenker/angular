@@ -66,7 +66,7 @@ export class SpeedPenaltyComponent {
 	// }
 
 	private _compareInternalRanks(firstNumber: string, secondNumber: string): string {
-		const lessNumber = firstNumber.length < secondNumber.length ? firstNumber : secondNumber;
+		const lessNumber = firstNumber.length <= secondNumber.length ? firstNumber : secondNumber;
 		const biggerNumber = firstNumber.length > secondNumber.length ? firstNumber : secondNumber;
 		let lessRank = 0;
 		for (let i = 0; i < biggerNumber.length; i++) {
