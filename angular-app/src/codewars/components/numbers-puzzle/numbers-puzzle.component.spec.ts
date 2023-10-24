@@ -25,7 +25,7 @@ describe('NumbersPuzzleComponent', () => {
 			[1, ['1', '1']],
 			[2, ['2', '11']],
 			[3, ['3', '111']],
-			[3, ['991', '1111111111111111111']],
+			[19, ['991', '1111111111111111111']],
 		])
 		('when number is %p, it should return %p', (value: number, expectedResult: string[]) => {
 			const result = component.one_two_three(value);
