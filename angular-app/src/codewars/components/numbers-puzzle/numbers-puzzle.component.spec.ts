@@ -21,10 +21,12 @@ describe('NumbersPuzzleComponent', () => {
 
 	describe('one_two_three', () => {
 		test.each([
-			[1, ['0', '0']]
+			[0, ['0', '0']],
+			[1, ['1', '1']]
 		])
 		('when number is %p, it should return %p', (value: number, expectedResult: string[]) => {
-			expect(component.one_two_three(value)).toBe(expectedResult);
+			const result = component.one_two_three(value);
+			expect(result).toStrictEqual(expectedResult);
 		});
 	})
 });
