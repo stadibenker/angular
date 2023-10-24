@@ -18,4 +18,13 @@ describe('NumbersPuzzleComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
+
+	describe('one_two_three', () => {
+		test.each([
+			[1, ['0', '0']]
+		])
+		('when number is %p, it should return %p', (value: number, expectedResult: string[]) => {
+			expect(component.one_two_three(value)).toBe(expectedResult);
+		});
+	})
 });

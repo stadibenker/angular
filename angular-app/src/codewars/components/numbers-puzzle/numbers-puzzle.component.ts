@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
 	styleUrls: ['./numbers-puzzle.component.scss']
 })
 export class NumbersPuzzleComponent {
-
+	public one_two_three(value: number): string[] {
+		const result = [];
+		return [];
+	}
 }
