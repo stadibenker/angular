@@ -6,15 +6,11 @@ import { Component } from '@angular/core';
 	styleUrls: ['./permutations.component.scss']
 })
 export class PermutationsComponent {
-	public allPermuted (amount: bigint, n: bigint): bigint {
-		if (amount === 1n) {
-			return 0n;
-		}
-		if (amount === 2n) {
+	public allPermuted (n: bigint): bigint {
+		if (n === 0n) {
 			return 1n;
 		}
-		// return (n-1n) * (this.allPermuted(amount - 1n, n) + this.allPermuted(amount - 2n, n));
-		return n * this.allPermuted(amount - 1n, n) + ((-1n) ** n);
+		return n * this.allPermuted(n - 1n) + ((-1n) ** n);
 	}
 
 	public factorial(n: number): number {

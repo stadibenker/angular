@@ -21,14 +21,14 @@ describe('PermutationsComponent', () => {
 
 	describe('allPermuted', () => {
 		test.each([
-			//[1n, 0n],
+			[1n, 0n],
 			[4n, 9n],
 			[5n, 44n],
 			[6n, 265n],
 			[30n, 97581073836835777732377428235481n]
 		])
 		('when amount is %p, it should return %p', (n, expectedResult) => {
-			const result = component.allPermuted(n, n);
+			const result = component.allPermuted(n);
 			expect(result).toEqual(expectedResult);
 		});
 	});
