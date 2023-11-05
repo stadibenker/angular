@@ -21,8 +21,10 @@ describe('I18nComponent', () => {
 
 	describe('abbreviate', () => {
 		test.each([
+			['one', 'one'],
 			['internationalization', 'i18n'],
 			['elephant-ride', 'e6t-r2e'],
+			['elephant-ride one sentence', 'e6t-r2e one s6e'],
 		])
 		('when words is %p, it should return abbribiation %p', (words, expectedResult) => {
 			const result = component.abbreviate(words);
