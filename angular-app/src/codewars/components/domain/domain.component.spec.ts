@@ -23,8 +23,11 @@ describe('DomainComponent', () => {
 		test.each([
 			['http://google.com', 'google'],
 			['http://google.co.jp', 'google'],
-			['https://youtube.com', 'youtube'],
+			['https://youtube.com/', 'youtube'],
 			['https://youtu.be/bFcfaCbd', 'youtu'],
+			['http://github.com/carbonfive/raygun', 'github'],
+			['http://www.zombie-bites.com', 'zombie-bites'],
+			['https://www.cnet.com', 'cnet'],
 		])
 		('when url is %p, domain should be %p', (url, expectedResult) => {
 			const result = component.getDomainName(url);
